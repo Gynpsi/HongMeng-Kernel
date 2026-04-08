@@ -1,4 +1,4 @@
-# HarmonyOS-5-Kernel
+# HongMeng-Kernel（for HarmonyOS）
 fork from https://consumer.huawei.com/en/opensource/detail/?siteCode=worldwide&amp;productCode=Smartphones&amp;fileType=openSourceSoftware&amp;pageSize=10&amp;curPage=1
 
 ## 查看源码请切换分支，原始代码包请查看releases。
