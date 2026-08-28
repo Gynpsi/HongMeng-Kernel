@@ -47,8 +47,8 @@ jobs:
          case " $* " in
              *" --build "*|*" --install "*|*" --open "*|*" --workflow "*|*" -P "*|*" -E "*)
              
-           exec "$REAL" "$@" ;;                    # 模式类调用原样透传，不加 -Wno-dev
-             *) exec "$REAL" -Wno-dev "/$@" ;;
+           exec "$REAL" "/$@" ;;                    # 模式类调用原样透传，不加 -Wno-dev
+             *) exec "$REAL" -Wno-dev "$@" ;;
            esac
          EOF
          chmod +x "$RUNNER_TEMP/cmakewrap/cmake"
