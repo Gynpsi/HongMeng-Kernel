@@ -44,10 +44,12 @@ jobs:
          mkdir -p "$RUNNER_TEMP/cmakewrap"
          cat > "$RUNNER_TEMP/cmakewrap/cmake" <<EOF
          #!/bin/sh
-          case " \$* " in
-         *" --build "*|*" -P "*|*" -E "*) exec "$REAL" "\$@" ;;
-         *) exec "$REAL" -Wno-dev "\$@" ;;
-         esac
+         case " $* " in
+             *" --build "*|*" --install "*|*" --open "*|*" --workflow "*|*" -P "*|*" -E "*)
+             
+           exec "$REAL" "$@" ;;                    # 模式类调用原样透传，不加 -Wno-dev
+             *) exec "$REAL" -Wno-dev "$@" ;;
+           esac
          EOF
          chmod +x "$RUNNER_TEMP/cmakewrap/cmake"
          echo "$RUNNER_TEMP/cmakewrap" >> "$GITHUB_PATH"
