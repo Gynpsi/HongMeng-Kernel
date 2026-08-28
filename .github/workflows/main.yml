@@ -55,8 +55,10 @@ jobs:
       
       - name: Run build_tools.sh (prepare toolchain + musl)
         working-directory: kernel    # 关键：切到 kernel/ 子目录
-        run: bash build_tools.sh
-
+        run:  |
+         set -o pipefail
+         bash -x ./build_tools.sh 2>&1 | tee trace.log
+ 
       - name: Run build.sh (build all modules)
         working-directory: kernel
         run: CONFIG=build.conf bash build.sh
