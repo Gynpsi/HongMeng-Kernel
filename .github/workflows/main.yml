@@ -1,0 +1,37 @@
+name: Build HongMeng Kernel for nova Flip S
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: nova-Flip-S_HarmonyOS-5.1.0
+
+      - name: Setup build deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential bc bison flex \
+            libssl-dev libtinfo5 python3 python3-pip cpio
+
+      - name: Download HarmonyOS Command Line Tools
+        run: |
+          # 从华为开发者站下载 command-line-tools-linux-x64-5.0.0.xxx.zip
+          # (URL 会随版本变化，需从华为官网获取最新直链)
+          wget -O cmdtools.zip "https://contentcenter-vali-drcn.dbankcdn.cn/pvt_2/DeveloperAlliance_package_901_9/95/v3/ksUKbWstTiqarw0qRRlIXQ/commandline-tools-linux-x64-26.0.0.621.zip?HW-CC-KV=V1&HW-CC-Date=20260828T115933Z&HW-CC-Expire=315360000&HW-CC-Sign=3D03D5C410D965FDB5CA5AE8B2BCF961225FA7B2955C1581423EC05464E874FD"
+          unzip cmdtools.zip -d $HOME/cmdtools
+          echo "$HOME/cmdtools/bin" >> $GITHUB_PATH
+
+      - name: Build
+        run: |
+          bash build_tools.sh
+          CONFIG=build.conf bash build.sh
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: hongmeng-kernel-nova-flip-s
+          path: output/
+
