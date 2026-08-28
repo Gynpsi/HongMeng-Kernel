@@ -9,6 +9,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: nova-Flip-S_HarmonyOS-5.1.0
+          
       - name: Add swap
         run: |
          sudo fallocate -l 8G /swapfile
