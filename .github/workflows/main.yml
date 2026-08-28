@@ -39,18 +39,18 @@ jobs:
           mv commandline-tools-linux-x64-5.0.3.906.zip kernel/
 
       - name: Wrap cmake with -Wno-dev
-     run: |
-      REAL=$(command -v cmake)
-      mkdir -p "$RUNNER_TEMP/cmakewrap"
-      cat > "$RUNNER_TEMP/cmakewrap/cmake" <<EOF
-      #!/bin/sh
-        case " \$* " in
-      *" --build "*|*" -P "*|*" -E "*) exec "$REAL" "\$@" ;;
-      *) exec "$REAL" -Wno-dev "\$@" ;;
-      esac
-      EOF
-      chmod +x "$RUNNER_TEMP/cmakewrap/cmake"
-       echo "$RUNNER_TEMP/cmakewrap" >> "$GITHUB_PATH"
+        run: |
+         REAL=$(command -v cmake)
+         mkdir -p "$RUNNER_TEMP/cmakewrap"
+         cat > "$RUNNER_TEMP/cmakewrap/cmake" <<EOF
+         #!/bin/sh
+          case " \$* " in
+         *" --build "*|*" -P "*|*" -E "*) exec "$REAL" "\$@" ;;
+         *) exec "$REAL" -Wno-dev "\$@" ;;
+         esac
+         EOF
+         chmod +x "$RUNNER_TEMP/cmakewrap/cmake"
+         echo "$RUNNER_TEMP/cmakewrap" >> "$GITHUB_PATH"
 
       
       - name: Run build_tools.sh (prepare toolchain + musl)
