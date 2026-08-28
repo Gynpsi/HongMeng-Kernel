@@ -1,5 +1,8 @@
 name: Build HongMeng Kernel for nova Flip S
 on: [push, workflow_dispatch]
+env:
+  CMAKE_POLICY_DEFAULT_CMP0174: OLD   # 消掉 cmake_parse_arguments 空 SUBDIR 警告
+  CMAKE_POLICY_DEFAULT_CMP0177: OLD   # 消掉 install() DESTINATION 警告（日志里也出现了）
 
 jobs:
   build:
