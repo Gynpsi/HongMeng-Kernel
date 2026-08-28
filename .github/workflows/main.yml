@@ -13,9 +13,8 @@ jobs:
       - name: Setup build deps
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential bc bison flex \
-            libssl-dev libtinfo5 python3 python3-pip cpio \
-            cmake ninja-build unzip wget
+          sudo apt-get install -y build-essential bc bison flex libssl-dev libtinfo5 python3 python3-pip cpio llvm cmake gettext ninja-build unzip wget gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu
+
 
       - name: Download HarmonyOS Command Line Tools 5.0.3.906
         run: |
